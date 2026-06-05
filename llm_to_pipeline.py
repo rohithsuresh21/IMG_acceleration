@@ -1,11 +1,11 @@
 import os
-# Prevent network telemetry hanging during initial setups
 os.environ["HF_HUB_DISABLE_TELEMETRY"] = "1"
 
 import requests
 from sampleCode import GenerationSession
 
 def enhance_prompt(user_prompt: str) -> str:
+
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
