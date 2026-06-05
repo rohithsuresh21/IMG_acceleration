@@ -20,19 +20,16 @@ class GenerationSession:
         
         print("Initializing pipelines... (Torch compile may take a minute on first run)")
         
-        # This is your base pipeline — txt2img
         self.txt2img_pipe = DiffusionPipeline.from_pretrained(
             MODEL_ID,
-            torch_dtype=torch.float16,  # FP16 precision
-            safety_checker=None,        # remove safety checker to save VRAM + speed
+            torch_dtype=torch.float16,  
+            safety_checker=None,        
         )
         self.txt2img_pipe.scheduler = LCMScheduler.from_config(self.txt2img_pipe.scheduler.config)
         self.txt2img_pipe.to("cuda")
         self.txt2img_pipe.enable_attention_slicing()
         self.txt2img_pipe.enable_vae_slicing()
         
-        # Note: 'reduce-overhead' with fullgraph=True triggers deep C++ AOT compilation.
-        # It will feel frozen on the very first generation step while compiling.
         self.txt2img_pipe.unet = torch.compile(
             self.txt2img_pipe.unet,
             mode="reduce-overhead",
@@ -40,7 +37,7 @@ class GenerationSession:
         )
         print("txt2img pipeline loaded and compiled.")
 
-        # AutoPipelineForImage2Image shares components from txt2img_pipe (no extra VRAM)
+       
         self.img2img_pipe = AutoPipelineForImage2Image.from_pipe(self.txt2img_pipe)
         print("img2img pipeline loaded (shared weights).")
 

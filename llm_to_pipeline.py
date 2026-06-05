@@ -6,7 +6,6 @@ import requests
 from sampleCode import GenerationSession
 
 def enhance_prompt(user_prompt: str) -> str:
-    # Ensure your local Ollama instance is up and running before executing!
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
@@ -22,17 +21,16 @@ def enhance_prompt(user_prompt: str) -> str:
         )
         return response.json()["response"].strip()
     except requests.exceptions.ConnectionError:
-        print("⚠️ Warning: Could not connect to local Ollama instance at localhost:11434. Using raw prompt.")
+        print("Warning: Could not connect to local Ollama instance at localhost:11434. Using raw prompt.")
         return user_prompt
 
 
 def smart_generate(user_prompt: str, session: GenerationSession, strength: float = 0.45):
-    # Step 1 — Mistral enhances the raw prompt
+   
     enhanced = enhance_prompt(user_prompt)
     print(f"\nOriginal : {user_prompt}")
     print(f"Enhanced : {enhanced}")
 
-    # Step 2 — enhanced prompt goes into your pipeline session
     image = session.generate(enhanced, strength=strength)
     return image, enhanced
 
