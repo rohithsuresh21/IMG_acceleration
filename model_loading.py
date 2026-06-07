@@ -1,6 +1,6 @@
-from PIL import image
+from PIL import Image
 import os
-from ollama import Image
+import ollama
 import torch
 from diffusers import DiffusionPipeline, AutoPipelineForImage2Image, LCMScheduler, AutoPipelineForText2Image
 import time
