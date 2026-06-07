@@ -57,7 +57,7 @@ class GenerationSession:
         
         def GeneratingVariationImage(self, prompt: str, reference_image: Image.Image, strength: float = 0.5, negative_prompt: str = "Blurry, low quality, static and distorted image") -> str:
             start = time.time()
-            image - self.image2img_pipeline(
+            image = self.img2img_pipeline(
                 prompt = prompt,
                 image = reference_image,
                 strength = strength,
