@@ -17,7 +17,7 @@ def prompt_enhancer(user_prompt: str) -> str:
                 ),
                 "stream": False
             },
-            timeout=15 
+            timeout=60
         )
     except requests.exceptions.ConnectionError:
         print("Warning: Could not connect to local Ollama.")
@@ -27,5 +27,5 @@ def prompt_enhancer(user_prompt: str) -> str:
 def smart_generate(user_prompt: str, session: GenerationSession, strength: float = 0.45):
     enhanced = prompt_enhancer(user_prompt)
 
-    image = session.generate(enhanced, session.current_image, strength=strength)
-    return image, enhanced
+    image = session.Generate(enhanced, strength=strength)
+    return image[0], enhanced 
