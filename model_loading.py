@@ -30,11 +30,7 @@ class GenerationSession:
             self.txt2img_pipeline.enable_attention_slicing()
             self.txt2img_pipeline.enable_vae_slicing()
 
-           # self.txt2img_pipeline.unet = torch.compile(
-           #   self.txt2img_pipeline.unet,
-           #    mode = "reduce-overhead",
-           #     fullgraph = True
-           #)
+           
             print("Text 2 image pipeline loaded and compiled.")
 
 
