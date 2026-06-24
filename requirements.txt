@@ -1,0 +1,14 @@
+# Core UI Framework
+gradio>=4.0.0
+
+# Deep Learning & Model Inference Frameworks
+torch
+torchvision
+transformers
+diffusers>=0.25.0
+accelerate>=0.26.0
+
+# Image Processing and Utilities
+Pillow
+numpy
+huggingface_hub
